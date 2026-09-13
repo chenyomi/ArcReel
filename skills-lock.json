@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "adapt-custom-endpoint": {
+      "source": "ArcReel/skills",
+      "sourceType": "github",
+      "skillPath": "skills/adapt-custom-endpoint/SKILL.md",
+      "computedHash": "22088d29523552735fb8a3f49d6057c15865f2568e2c306aa9bd1dad6643fa2a"
+    },
     "agent-browser": {
       "source": "vercel-labs/agent-browser",
       "sourceType": "github",
@@ -97,6 +103,12 @@
       "skillPath": "skills/engineering/resolving-merge-conflicts/SKILL.md",
       "computedHash": "63b2dcadbe9124caeb3448f1378286fe18dcefb2494f60e136831b8b4986ca27"
     },
+    "setup-arcreel-skills": {
+      "source": "ArcReel/skills",
+      "sourceType": "github",
+      "skillPath": "skills/setup-arcreel-skills/SKILL.md",
+      "computedHash": "3070d27fda3d0bd6eacb94822d19ebca14ec20d62f8e74db8ff0f47b933dab0f"
+    },
     "setup-matt-pocock-skills": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -144,6 +156,12 @@
       "sourceType": "github",
       "skillPath": "skills/react-best-practices/SKILL.md",
       "computedHash": "ca7b0c0c6e5f2750043f7f0cd72d16ac4e2abc48f9b5500d047a4b77a2506212"
+    },
+    "video-workflow": {
+      "source": "ArcReel/skills",
+      "sourceType": "github",
+      "skillPath": "skills/video-workflow/SKILL.md",
+      "computedHash": "92bf1082a634cfe7902f2c7beb5f28dcea52593f87a9829cef05d6f65770de4f"
     },
     "wait-what": {
       "source": "mattpocock/skills",

@@ -47,6 +47,7 @@ from lib.narration_delivery import POST_PRODUCTION, USE_TTS
 from lib.project_migration_failure import ProjectMigrationError
 from lib.project_migration_report import MigrationSkippedArtifact
 from lib.project_schema import CURRENT_PROJECT_SCHEMA_VERSION, parse_project_schema_version, project_schema_is_current
+from lib.reference_catalog import build_reference_catalog
 from lib.resource_paths import resource_relative_path
 from lib.script_editor import resolve_items
 from lib.speech_artifact_provenance import RenditionVariant, SelectedMediaEvidence, media_content_digest
@@ -675,30 +676,21 @@ class TargetStatePlanner:
         references: list[VisualReference] = []
         seen_paths: set[str] = set()
         valid = True
+        # 引用字段可写 ``本体名/衍生名``（见 ADR 0072）；经 ReferenceCatalog 解析到
+        # 本体或衍生条目本身，才能读到对应资产图，不能只按顶层资产表 key 精确匹配。
+        catalog = build_reference_catalog(self.project)
 
         def append_asset(asset_type: str, name: object, *, include_originals: bool = False) -> None:
             nonlocal valid
             if not isinstance(name, str):
                 valid = False
                 return
-            spec = ASSET_SPECS[asset_type]
-            bucket = self.project.get(spec.bucket_key)
-            if not isinstance(bucket, Mapping):
+            resolved = catalog.lookup(asset_type, name)
+            if resolved is None or not isinstance(resolved.asset, Mapping):
                 valid = False
                 return
-            entry = next(
-                (
-                    candidate
-                    for raw_name, candidate in bucket.items()
-                    if isinstance(raw_name, str)
-                    and asset_name_comparison_key(raw_name) == asset_name_comparison_key(name)
-                    and isinstance(candidate, Mapping)
-                ),
-                None,
-            )
-            if not isinstance(entry, Mapping):
-                valid = False
-                return
+            entry = resolved.asset
+            spec = resolved.spec
             paths: list[tuple[object, str]] = [(entry.get(spec.sheet_field), "sheet")]
             if include_originals:
                 originals = entry.get("reference_images", [])

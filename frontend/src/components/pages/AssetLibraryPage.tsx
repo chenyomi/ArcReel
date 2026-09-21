@@ -19,6 +19,7 @@ import {
   ambientGlowStyle,
 } from "@/components/ui/darkroom-tokens";
 import type { Asset, AssetType } from "@/types/asset";
+import { assetPackCategory } from "@/utils/assetPackCategory";
 
 const ASSET_LIBRARY_RETURN_TO_KEY = "assetLibrary:returnTo";
 
@@ -126,6 +127,8 @@ export function AssetLibraryPage() {
   const [formModal, setFormModal] = useState<{ mode: "create" | "edit"; asset?: Asset } | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Asset | null>(null);
   const [deleting, setDeleting] = useState(false);
+  // 资产库本身没有题材字段；导入时用「题材-编号」命名，这里按前缀做筛选。
+  const [packFilter, setPackFilter] = useState<string | null>(null);
 
   const byType = useAssetsStore((s) => s.byType);
   const loadList = useAssetsStore((s) => s.loadList);
@@ -137,7 +140,25 @@ export function AssetLibraryPage() {
     void loadList(activeTab, debouncedQ || undefined);
   }, [activeTab, debouncedQ, loadList]);
 
-  const assets = byType[activeTab];
+  useEffect(() => {
+    setPackFilter(null);
+  }, [activeTab]);
+
+  const assetsAll = byType[activeTab];
+  const packCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const asset of assetsAll) {
+      const pack = assetPackCategory(asset.name);
+      if (!pack) continue;
+      counts.set(pack, (counts.get(pack) ?? 0) + 1);
+    }
+    return [...counts.entries()].toSorted((a, b) => a[0].localeCompare(b[0], "zh"));
+  }, [assetsAll]);
+  const showPackFilter = packCounts.length > 1;
+  const assets = useMemo(() => {
+    if (!packFilter) return assetsAll;
+    return assetsAll.filter((asset) => assetPackCategory(asset.name) === packFilter);
+  }, [assetsAll, packFilter]);
   const ActiveIcon = TABS.find((tab) => tab.type === activeTab)!.icon;
 
   const handleSubmit = async (payload: {
@@ -285,6 +306,49 @@ export function AssetLibraryPage() {
       </header>
 
       <main className="relative mx-auto w-full max-w-6xl flex-1 px-6 py-8">
+        {showPackFilter ? (
+          <div
+            role="group"
+            aria-label={t("pack_filter_label")}
+            className="mb-5 flex flex-wrap items-center gap-2"
+          >
+            <span className="mr-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-text-4">
+              {t("pack_filter_label")}
+            </span>
+            <button
+              type="button"
+              aria-pressed={packFilter === null}
+              onClick={() => setPackFilter(null)}
+              className={`inline-flex items-center gap-1.5 rounded-[8px] border px-3 py-1.5 text-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                packFilter === null
+                  ? "border-accent/45 bg-accent-dim text-text"
+                  : "border-hairline-soft bg-bg-grad-a/40 text-text-2 hover:border-hairline hover:text-text"
+              }`}
+            >
+              {t("pack_filter_all")}
+              <span className="font-mono text-[10px] tabular-nums text-text-4">{assetsAll.length}</span>
+            </button>
+            {packCounts.map(([pack, count]) => {
+              const active = packFilter === pack;
+              return (
+                <button
+                  key={pack}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setPackFilter(pack)}
+                  className={`inline-flex items-center gap-1.5 rounded-[8px] border px-3 py-1.5 text-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                    active
+                      ? "border-accent/45 bg-accent-dim text-text"
+                      : "border-hairline-soft bg-bg-grad-a/40 text-text-2 hover:border-hairline hover:text-text"
+                  }`}
+                >
+                  {pack}
+                  <span className="font-mono text-[10px] tabular-nums text-text-4">{count}</span>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
         <div
           role="tabpanel"
           id="asset-panel"

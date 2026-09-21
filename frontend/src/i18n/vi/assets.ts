@@ -42,6 +42,8 @@ export default {
   "library_empty_scene": "Chưa có cảnh nào",
   "library_empty_prop": "Chưa có đạo cụ nào",
   "library_empty_hint": "Hãy nhấn \"Thêm vào thư viện\" trong dự án hoặc tạo mới tại đây",
+  "pack_filter_label": "Phân loại chủ đề",
+  "pack_filter_all": "Tất cả",
   "upload_image_hint": "Kéo thả hoặc nhấn để tải lên",
   "project_count": "{{count}} dự án",
   "delete_confirm": "Xóa {{type}} này? Ảnh đính kèm cũng sẽ bị xóa.",

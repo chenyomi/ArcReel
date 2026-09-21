@@ -828,6 +828,12 @@ class ScriptGenerator:
             if entry_id in added:
                 if plan_kind != "reference_video":
                     content = {**content, "image_prompt": None, "video_prompt": None}
+                # 机械转换只投影内容层；运行时容器须在此补齐，否则前端读
+                # generated_assets.video_clip 会在缺字段的 unit 上直接炸。
+                content = {
+                    **content,
+                    "generated_assets": ProjectManager.create_generated_assets(self.content_mode),
+                }
                 rewritten.append(content)
             elif entry_id in refreshed:
                 rewritten.append({**scope.existing[entry_id], **content})

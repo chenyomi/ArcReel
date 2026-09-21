@@ -792,3 +792,21 @@ async def test_legacy_video_materializes_after_the_provenance_backfill_migration
         "videos",
         "episode_1.json",
     )
+
+
+async def test_resolve_settings_returns_none_when_video_only_blocks_audio_backend(tmp_path: Path) -> None:
+    """video_only 策略拒绝解析 audio 时，后制成片预览仍应能继续（TTS 设置视为缺失）。"""
+    from lib.api_errors import BadRequestError
+
+    class _VideoOnlyBlockedSettings:
+        async def resolve_tts_synthesis_settings(self, _project: dict) -> TtsSynthesisSettings:
+            raise BadRequestError("paid_generation_video_only", media_type="audio")
+
+    projects_root = tmp_path / "projects"
+    projects_root.mkdir()
+    read_model = PresentationReadModelService(
+        ProjectManager(projects_root),
+        settings_resolver_factory=lambda _project_name, _project_path: _VideoOnlyBlockedSettings(),
+    )
+    settings = await read_model._resolve_settings("demo", projects_root / "demo", {})
+    assert settings is None

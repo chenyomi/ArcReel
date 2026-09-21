@@ -76,3 +76,9 @@ from lib.providers import PROVIDER_AGNES
 from lib.video_backends.agnes import AgnesVideoBackend
 
 register_backend(PROVIDER_AGNES, AgnesVideoBackend)
+
+# aimanplay（菠萝 max）— STS 上传 + /v1/videos 轮询 + Bearer 成片下载
+from lib.providers import PROVIDER_AIMANPLAY
+from lib.video_backends.aimanplay import AimanplayVideoBackend
+
+register_backend(PROVIDER_AIMANPLAY, AimanplayVideoBackend)

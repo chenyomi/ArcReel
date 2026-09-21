@@ -42,6 +42,8 @@ export default {
   "library_empty_scene": "还没有场景资产",
   "library_empty_prop": "还没有道具资产",
   "library_empty_hint": "可以在项目里点「加入资产库」，或直接在这里新建",
+  "pack_filter_label": "题材分类",
+  "pack_filter_all": "全部",
   "upload_image_hint": "拖入或点击上传",
   "project_count": "{{count}} 个项目",
   "delete_confirm": "确定删除这个{{type}}？图片也会被删除",

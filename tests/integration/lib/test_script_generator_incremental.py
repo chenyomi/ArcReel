@@ -577,12 +577,15 @@ class TestScriptPlanConversion:
             if variant is REFERENCE:
                 assert entry["text"] == plan_entries[entry_id]["text"]
                 assert "image_prompt" not in entry
+                assert entry["generated_assets"]["status"] == "pending"
+                assert entry["generated_assets"]["video_clip"] is None
             else:
                 assert entry["image_prompt"] is None
                 assert entry["video_prompt"] is None
                 assert "needs_replan" not in entry
                 assert "scene_description" not in entry
                 assert entry[_plan_text_field(variant)] == plan_entries[entry_id][_plan_text_field(variant)]
+                assert entry["generated_assets"]["status"] == "pending"
         assert not _currency(project_dir, plan_path, variant).is_stale
 
     async def test_repeated_conversion_is_a_no_op(self, tmp_path: Path, variant: _Variant) -> None:

@@ -10,11 +10,21 @@ interface AssetsStore {
   deleteAsset: (id: string, type: AssetType) => Promise<void>;
 }
 
+const LIST_PAGE_SIZE = 200;
+
 export const useAssetsStore = create<AssetsStore>((set) => ({
   byType: { character: [], scene: [], prop: [] },
   loadList: async (type, q) => {
-    const res = await API.listAssets({ type, q });
-    set((s) => ({ byType: { ...s.byType, [type]: res.items } }));
+    // 后端 list 默认 limit=100；资产库页需要完整列表，按页拉到空页为止。
+    const items: Asset[] = [];
+    let offset = 0;
+    for (;;) {
+      const res = await API.listAssets({ type, q, limit: LIST_PAGE_SIZE, offset });
+      items.push(...res.items);
+      if (res.items.length < LIST_PAGE_SIZE) break;
+      offset += LIST_PAGE_SIZE;
+    }
+    set((s) => ({ byType: { ...s.byType, [type]: items } }));
   },
   addAsset: (asset) =>
     set((s) => ({

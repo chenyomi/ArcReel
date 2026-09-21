@@ -50,6 +50,7 @@ MESSAGES = {
     "task_not_found": "Task '{id}' does not exist",
     "task_retry_download_unavailable": "Task '{id}' is not eligible for download retry",
     # Task failure reasons (GenerationWorker stores a code + params; tasks API renders per locale on read)
+    "paid_generation_video_only": "Paid generation is limited to video only: {media_type} provider calls are blocked (image/text/audio). Use local assets or turn the limit off",
     "task_fail_provider_unsupported_media": "Provider {provider_id} does not support {media_type} generation",
     "task_fail_provider_rejected": "The provider rejected this generation request (HTTP {status})",
     "task_fail_dispatch_provider_requeue_failed": "The task provider changed from {claimed_provider_id} to {actual_provider_id}, but the task could not be requeued for a new slot; please retry",
@@ -422,6 +423,7 @@ MESSAGES = {
     "video_last_frame_requires_pro": "{provider}/{model} only supports first+last frame at the pro tier; switch to the pro tier or remove the last frame",
     "video_last_frame_unsupported": "{provider}/{model} does not support a last frame under the current configuration; generation aborted. Remove the shot's last frame, or switch to a model or tier that supports it",
     "video_reference_audio_unsupported": "{provider}/{model} does not support reference audio; generation aborted. Remove the character's reference audio, or switch to a model that supports voice reference",
+    "video_reference_audio_required": "Model {model} requires at least one reference audio clip; please provide reference audio",
     "video_reference_audio_exceeded": "Model {model} supports at most {limit} reference audio clips but received {count}; reduce the number of characters with reference audio",
     "video_reference_audio_duration_exceeded": "Model {model} supports at most {limit:g} seconds of combined reference audio but received {total:.1f} seconds; use fewer reference audio clips or shorter clips",
     "video_reference_audio_slots_insufficient": "Model {model} attaches each reference audio clip to a reference asset, but only {slots} reference assets are available for {count} clips; add reference images for those characters, or reduce the number of characters with reference audio",

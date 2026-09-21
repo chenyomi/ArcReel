@@ -874,10 +874,16 @@ class GenerationWorker:
         """
         task_id = task["task_id"]
         task_type = task.get("task_type", "unknown")
+        media_type = str(task.get("media_type") or "")
         provider_id = claimed_provider_id or await self._provider_projection(task)
         logger.info("开始处理任务 %s (type=%s, provider=%s)", task_id, task_type, provider_id)
 
         try:
+            # 入队后才打开 video_only 时，已 queued 的图片/文本/配音仍会被 claim；
+            # 在打供应商前再拦一次，避免扣费。
+            from lib.config.generation_policy import assert_paid_media_allowed
+
+            await assert_paid_media_allowed(media_type)
             result = await self._executor(task, claimed_provider_id=provider_id)
         except asyncio.CancelledError:
             # 用户/级联取消：worker.request_cancel 触发 asyncio.Task.cancel()

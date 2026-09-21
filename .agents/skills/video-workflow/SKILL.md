@@ -7,6 +7,17 @@ description: 当用户要求创建视频、新建或继续项目、推进下一�
 
 以已连接的 ArcReel MCP 服务作为项目状态的唯一来源。每次项目级工具调用都必须显式指定项目，不依赖本地项目文件或 Agent 宿主的工作目录。
 
+## 计费硬限制（必须遵守）
+
+本机若开启 `paid_generation_media=video_only`（入队与解析闸口强制执行），**禁止**调用任何会打到图片 / 文本 / 配音供应商的接口，即使工作流 `next_action` 指向它们：
+
+- 禁止：`generate_assets`、`generate_storyboards`、`generate_grid`、`edit_images`
+- 禁止：`generate_narration_audio`
+- 禁止：`generate_script_plan`、`generate_episode_script`、`plan_episodes`（会走文本模型计费）
+- 允许：`generate_videos`，以及不调供应商的读写工具（`patch_draft`、`upload_source`、资产库套用、`convert_script_plan` 等）
+
+图片与文案由 Cursor / 本地素材完成；不要为了「推进工作流」去调上述禁止工具。调用会被服务端拒绝，但仍属违规尝试。
+
 ## 按计划路由
 
 1. 使用 ArcReel 项目工具确定项目。尚无项目时，先收集创建所需信息并创建项目。

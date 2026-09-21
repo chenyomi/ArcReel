@@ -432,6 +432,9 @@ PROVIDER_SPEC_REGISTRY[("minimax", "video")] = ProviderSpec(
 PROVIDER_SPEC_REGISTRY[("agnes", "image")] = _simple_spec("agnes", "image")
 PROVIDER_SPEC_REGISTRY[("agnes", "video")] = _simple_spec("agnes", "video")
 
+# aimanplay 仅视频：STS 上传 + 平台私有字段，走专属 VideoBackend。
+PROVIDER_SPEC_REGISTRY[("aimanplay", "video")] = _simple_spec("aimanplay", "video")
+
 # ── 文本族注册 ────────────────────────────────────────────────────
 # 简单文本四家（registry_backend = provider_id 自身）；gemini 两个 provider_id 按 backend 分两行
 # （aistudio/vertex 各自闭包，registry_backend 同为 "gemini"）；OpenAI-compat 三家都映射到 "openai"

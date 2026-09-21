@@ -50,6 +50,7 @@ MESSAGES = {
     "task_not_found": "Tác vụ '{id}' không tồn tại",
     "task_retry_download_unavailable": "Tác vụ '{id}' hiện không thể thử tải lại",
     # Lý do tác vụ thất bại (GenerationWorker lưu mã lỗi + tham số; tasks API kết xuất theo ngôn ngữ khi đọc)
+    "paid_generation_video_only": "Chỉ cho phép tạo video có tính phí: không gọi nhà cung cấp {media_type} (ảnh/văn bản/âm thanh). Dùng tài nguyên cục bộ hoặc tắt giới hạn này",
     "task_fail_provider_unsupported_media": "Nhà cung cấp {provider_id} không hỗ trợ tạo {media_type}",
     "task_fail_provider_rejected": "Nhà cung cấp đã từ chối yêu cầu tạo này (HTTP {status})",
     "task_fail_dispatch_provider_requeue_failed": "Nhà cung cấp tác vụ đã đổi từ {claimed_provider_id} sang {actual_provider_id}, nhưng không thể đưa tác vụ trở lại hàng đợi để nhận khe mới; vui lòng thử lại",
@@ -423,6 +424,7 @@ MESSAGES = {
     "video_last_frame_requires_pro": "{provider}/{model} chỉ hỗ trợ khung đầu+cuối ở gói pro; hãy chuyển sang gói pro hoặc bỏ khung hình cuối",
     "video_last_frame_unsupported": "{provider}/{model} không hỗ trợ khung hình cuối với cấu hình hiện tại; đã hủy tạo. Hãy bỏ khung hình cuối của cảnh quay này, hoặc chuyển sang mô hình hoặc gói có hỗ trợ",
     "video_reference_audio_unsupported": "{provider}/{model} không hỗ trợ âm thanh tham chiếu; đã hủy tạo. Hãy bỏ âm thanh tham chiếu của nhân vật, hoặc chuyển sang mô hình có hỗ trợ tham chiếu giọng nói",
+    "video_reference_audio_required": "Mô hình {model} cần ít nhất một đoạn âm thanh tham chiếu; hãy cung cấp âm thanh tham chiếu",
     "video_reference_audio_exceeded": "Mô hình {model} hỗ trợ tối đa {limit} đoạn âm thanh tham chiếu nhưng nhận được {count}; hãy giảm số nhân vật có âm thanh tham chiếu",
     "video_reference_audio_duration_exceeded": "Mô hình {model} hỗ trợ tổng thời lượng âm thanh tham chiếu tối đa {limit:g} giây nhưng nhận được {total:.1f} giây; hãy giảm số đoạn âm thanh tham chiếu hoặc dùng đoạn ngắn hơn",
     "video_reference_audio_slots_insufficient": "Mô hình {model} gắn mỗi đoạn âm thanh tham chiếu vào một tư liệu tham chiếu, nhưng chỉ có {slots} tư liệu cho {count} đoạn; hãy bổ sung ảnh tham chiếu cho các nhân vật đó, hoặc giảm số nhân vật có âm thanh tham chiếu",

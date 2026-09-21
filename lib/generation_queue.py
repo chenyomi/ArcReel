@@ -419,6 +419,14 @@ class GenerationQueue:
         # at each caller. Nothing is created and nothing is billed.
         await self.assert_project_migration_ok(project_name)
 
+        # video_only 策略在入队闸口拦掉图片/文本/配音，Agent 与 WebUI 都绕不过、不产生计费。
+        from lib.config.generation_policy import refuse_disallowed_paid_media
+        from lib.config.service import ConfigService
+
+        async with self._session_factory() as session:
+            settings = await ConfigService(session).get_all_settings()
+        refuse_disallowed_paid_media(media_type, settings)
+
         if task_type == "reference_video":
             payload = reference_video_enqueue_payload(payload, script_file=script_file)
 

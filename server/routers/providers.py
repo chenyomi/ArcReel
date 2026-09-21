@@ -989,6 +989,32 @@ def _check_kling(config: dict[str, str], _t: Callable[..., str]) -> Connectivity
     )
 
 
+def _check_aimanplay(config: dict[str, str], _t: Callable[..., str]) -> ConnectivityCheckResponse:
+    """通过 STS 接口验证 aimanplay 令牌（不创建计费视频任务）。"""
+    import httpx
+
+    from lib.aimanplay_shared import aimanplay_auth_headers, aimanplay_host
+    from lib.config.registry import PROVIDER_REGISTRY
+
+    host = aimanplay_host(config.get("base_url"))
+    resp = httpx.post(
+        f"{host}/api/video-upload/oss-sts",
+        headers=aimanplay_auth_headers(config["api_key"]),
+        timeout=_CONNECTIVITY_CHECK_TIMEOUT,
+    )
+    resp.raise_for_status()
+    body = resp.json()
+    if not isinstance(body, dict) or not body.get("success"):
+        message = body.get("message") if isinstance(body, dict) else "STS failed"
+        raise RuntimeError(str(message))
+    available = sorted(PROVIDER_REGISTRY["aimanplay"].models)
+    return ConnectivityCheckResponse(
+        success=True,
+        available_models=available,
+        message=_t("connectivity_check_ok"),
+    )
+
+
 _CONNECTIVITY_CHECK_DISPATCH: dict[str, Callable[[dict[str, str], Any], ConnectivityCheckResponse]] = {
     "gemini-aistudio": _check_gemini_aistudio,
     "gemini-vertex": _check_gemini_vertex,
@@ -1000,6 +1026,7 @@ _CONNECTIVITY_CHECK_DISPATCH: dict[str, Callable[[dict[str, str], Any], Connecti
     "dashscope": _check_dashscope,
     "minimax": _check_minimax,
     "kling": _check_kling,
+    "aimanplay": _check_aimanplay,
 }
 
 

@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from typing import Literal
 
 from lib.agnes_shared import AGNES_BASE_URL
+from lib.aimanplay_shared import AIMANPLAY_BASE_URL
 from lib.ark_shared import ARK_BASE_URL
 from lib.dashscope_shared import DASHSCOPE_BASE_URL
 from lib.minimax_shared import MINIMAX_BASE_URL
@@ -368,6 +369,28 @@ def _agnes_video_pricing(model_id: str, per_second: float) -> PerSecondMatrix:
         default_model=model_id,
         dimensions="flat",
         currency="USD",
+    )
+
+
+# aimanplay（菠萝 max）视频按秒计费（元/秒，CNY）；flat 或仅分辨率分档。
+def _aimanplay_video_flat_pricing(model_id: str, per_second: float) -> PerSecondMatrix:
+    return PerSecondMatrix(
+        rates={model_id: {("", None): per_second}},
+        default_model=model_id,
+        dimensions="flat",
+        currency="CNY",
+    )
+
+
+def _aimanplay_video_resolution_pricing(
+    model_id: str, rates: dict[str, float], *, default_resolution: str
+) -> PerSecondMatrix:
+    return PerSecondMatrix(
+        rates={model_id: {(res, None): rate for res, rate in rates.items()}},
+        default_model=model_id,
+        dimensions="resolution_only",
+        currency="CNY",
+        default_resolution=default_resolution,
     )
 
 
@@ -1391,6 +1414,83 @@ PROVIDER_REGISTRY: dict[str, ProviderMeta] = {
         # Agnes 视频上游对并发敏感，出厂串行（默认 1）避免主动制造 503 Service busy；
         # 用户可经 video_max_workers 覆盖。其余 lane 未声明，走全局默认。
         default_concurrency={"video": 1},
+    ),
+    "aimanplay": ProviderMeta(
+        display_name="aimanplay",
+        description="aimanplay.cn video API (MiniMax-H3 family); Bearer sk token; assets upload via STS then submit. Supports first/last frame, multi-ref, and image+audio.",
+        required_keys=["api_key"],
+        optional_keys=["base_url", "video_max_workers"],
+        secret_keys=["api_key"],
+        models={
+            # 多图参考 1080P（最多 9 张）——参考生视频默认推荐。
+            "minimax_h3_lightx2v_v5": ModelInfo(
+                display_name="Multi-Ref 1080P",
+                media_type="video",
+                capabilities=[],
+                default=True,
+                supported_durations=list(range(1, 11)),
+                resolutions=["1080p"],
+                pricing=_aimanplay_video_flat_pricing("minimax_h3_lightx2v_v5", 0.14),
+            ),
+            "minimax_h3_zm_u24": ModelInfo(
+                display_name="Image+Audio Ref Plus",
+                media_type="video",
+                capabilities=[],
+                supported_durations=list(range(1, 16)),
+                resolutions=["480p", "768p"],
+                pricing=_aimanplay_video_flat_pricing("minimax_h3_zm_u24", 0.07),
+            ),
+            "minimax_h3_image_audio_to_video_v2_15s": ModelInfo(
+                display_name="Image+Audio Ref",
+                media_type="video",
+                capabilities=[],
+                supported_durations=list(range(1, 16)),
+                resolutions=["480p", "768p"],
+                pricing=_aimanplay_video_flat_pricing("minimax_h3_image_audio_to_video_v2_15s", 0.06),
+            ),
+            "minimax_h3_z0903": ModelInfo(
+                display_name="Upscale 6img+3aud",
+                media_type="video",
+                capabilities=[],
+                supported_durations=list(range(1, 16)),
+                resolutions=["1080p", "1440p"],
+                pricing=_aimanplay_video_resolution_pricing(
+                    "minimax_h3_z0903",
+                    {"1080p": 0.12, "1440p": 0.14},
+                    default_resolution="1080p",
+                ),
+            ),
+            "minimax_h3_z0902": ModelInfo(
+                display_name="Upscale 6img Silent",
+                media_type="video",
+                capabilities=[],
+                supported_durations=list(range(1, 16)),
+                resolutions=["1080p", "1440p"],
+                pricing=_aimanplay_video_resolution_pricing(
+                    "minimax_h3_z0902",
+                    {"1080p": 0.12, "1440p": 0.14},
+                    default_resolution="1080p",
+                ),
+            ),
+            "minimax_h3_lightx2v": ModelInfo(
+                display_name="First-Last Frame",
+                media_type="video",
+                capabilities=[],
+                supported_durations=list(range(1, 11)),
+                resolutions=["480p", "768p"],
+                pricing=_aimanplay_video_flat_pricing("minimax_h3_lightx2v", 0.06),
+            ),
+            "minimax_h3_lightx2v_no_pic": ModelInfo(
+                display_name="Text-to-Video",
+                media_type="video",
+                capabilities=[],
+                supported_durations=list(range(1, 11)),
+                resolutions=["480p", "768p"],
+                pricing=_aimanplay_video_flat_pricing("minimax_h3_lightx2v_no_pic", 0.06),
+            ),
+        },
+        default_base_url=AIMANPLAY_BASE_URL,
+        default_concurrency={"video": 2},
     ),
 }
 

@@ -28,7 +28,7 @@ export function EpisodeHeader({ episode, title, units, onSaveTitle, canEditTitle
 
   const stats = useMemo(() => {
     const total = units.length;
-    const ready = units.filter((u) => !!u.generated_assets.video_clip).length;
+    const ready = units.filter((u) => !!u.generated_assets?.video_clip).length;
     const totalDur = sumItemDuration(units);
     const percent = total > 0 ? Math.round((ready / total) * 100) : 0;
     return {

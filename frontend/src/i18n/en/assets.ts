@@ -40,6 +40,8 @@ export default {
   "library_empty_scene": "No scenes yet",
   "library_empty_prop": "No props yet",
   "library_empty_hint": "Click \"Add to library\" from a project, or create one here",
+  "pack_filter_label": "Pack category",
+  "pack_filter_all": "All",
   "upload_image_hint": "Drop or click to upload",
   "project_count": "{{count}} projects",
   "delete_confirm": "Delete this {{type}}? Its image will also be removed.",

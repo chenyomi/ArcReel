@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from lib.api_errors import BadRequestError
 from lib.artifact_manifest import (
     ArtifactBasisDescriptor,
     ArtifactKey,
@@ -581,11 +582,21 @@ class PresentationReadModelService:
         project_path: Path,
         project: dict[str, Any],
     ) -> TtsSynthesisSettings | None:
+        """解析当前 TTS 设置，供成片币态比对；解析失败时返回 None。
+
+        ``paid_generation_media=video_only`` 会拒绝解析 audio 后端，但后制成片预览并不
+        依赖 TTS 供应商——Seedance 等视频自带声已在视频任务里完成。此处把该策略错误
+        与未配置音色同等视为「无可用 TTS 设置」，避免已落盘的视频预览被误拦成 400。
+        """
         resolver = self._settings_resolver_factory(project_name, project_path)
         try:
             return await resolver.resolve_tts_synthesis_settings(project)
         except ValueError:
             return None
+        except BadRequestError as exc:
+            if exc.key == "paid_generation_video_only":
+                return None
+            raise
 
     @staticmethod
     def _video_currency(

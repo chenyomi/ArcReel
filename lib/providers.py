@@ -19,6 +19,7 @@ PROVIDER_DASHSCOPE = "dashscope"
 PROVIDER_MINIMAX = "minimax"
 PROVIDER_KLING = "kling"
 PROVIDER_AGNES = "agnes"
+PROVIDER_AIMANPLAY = "aimanplay"
 PROVIDER_ANTHROPIC = "anthropic"
 
 CallType = Literal["image", "video", "text", "audio"]

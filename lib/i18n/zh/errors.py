@@ -50,6 +50,7 @@ MESSAGES = {
     "task_not_found": "任务 '{id}' 不存在",
     "task_retry_download_unavailable": "任务 '{id}' 当前不可重试下载",
     # 任务失败原因（GenerationWorker 写入错误码 + 参数，tasks API 读取时按语言渲染）
+    "paid_generation_video_only": "当前已开启「只允许视频生成」：禁止调用 {media_type} 供应商接口（图片/文本/配音均不可用）。请改用本地素材或关闭该限制",
     "task_fail_provider_unsupported_media": "供应商 {provider_id} 不支持 {media_type} 生成",
     "task_fail_provider_rejected": "供应商拒绝了这次生成请求（HTTP {status}）",
     "task_fail_dispatch_provider_requeue_failed": "任务供应商从 {claimed_provider_id} 变为 {actual_provider_id}，但无法回队重新认领，请重试",
@@ -367,6 +368,7 @@ MESSAGES = {
     "video_last_frame_requires_pro": "{provider}/{model} 的首尾帧仅在 pro 档生效；请切换到 pro 档，或移除尾帧",
     "video_last_frame_unsupported": "{provider}/{model} 当前配置不支持尾帧，已中止生成；请移除该分镜的尾帧，或改用支持尾帧的模型/档位",
     "video_reference_audio_unsupported": "{provider}/{model} 不支持参考音频，已中止生成；请移除角色的参考音频，或改用支持音色参考的模型",
+    "video_reference_audio_required": "模型 {model} 需要至少一段参考音频；请提供参考音频",
     "video_reference_audio_exceeded": "模型 {model} 最多支持 {limit} 段参考音频，收到 {count} 段；请减少带参考音频的角色数量",
     "video_reference_audio_duration_exceeded": "模型 {model} 参考音频总时长最多 {limit:g} 秒，当前合计 {total:.1f} 秒；请减少参考音频段数或换用更短的音频",
     "video_reference_audio_slots_insufficient": "模型 {model} 的参考音频需逐段挂在参考素材上，当前只有 {slots} 个参考素材却收到 {count} 段音频；请为这些角色补齐参考图，或减少带参考音频的角色数量",

@@ -27,6 +27,7 @@ from lib.backend_assembly.specs import (
     builtin_video_capabilities_for_model,
 )
 from lib.character_voice import CharacterVoiceBinding, character_voice_binding
+from lib.config.generation_policy import refuse_disallowed_paid_media
 from lib.config.registry import (
     PROVIDER_REGISTRY,
     default_model_for_provider,
@@ -402,6 +403,8 @@ PROVIDER_FALLBACK_RESOLUTION: dict[str, str] = {
     "openai": "720p",
     # MiniMax 海螺缺省 768P：1080P 仅 6s，默认落 768P 避免与 10s 档冲突。
     "minimax": "768p",
+    # aimanplay 多数型号以 768p 为主（图音参考等）；仅 1080P 的型号在 backend 内吸附到自身档位。
+    "aimanplay": "768p",
 }
 
 
@@ -874,6 +877,7 @@ class ConfigResolver:
         ``generation_type`` 决定走 t2i 还是 i2i 槽（见 ``docs/adr/0001``）。不做任何 provider 归一化。
         """
         async with self._open_session() as (session, svc):
+            refuse_disallowed_paid_media("image", await svc.get_all_settings())
             return await self._resolve_image_provider_model(svc, session, project, payload, generation_type)
 
     async def resolve_video_backend(
@@ -955,6 +959,7 @@ class ConfigResolver:
         语音任务无任务类型维度。不做任何 provider 归一化。
         """
         async with self._open_session() as (session, svc):
+            refuse_disallowed_paid_media("audio", await svc.get_all_settings())
             return await self._resolve_audio_provider_model(svc, session, project, payload)
 
     async def resolve_narration_voice(self, project: dict | None) -> str:
@@ -1780,6 +1785,7 @@ class ConfigResolver:
         任务需要 vision 时校验解析结果的能力，不满足直接报错、不静默换模型（docs/adr/0051）。
         """
         async with self._open_session() as (session, svc):
+            refuse_disallowed_paid_media("text", await svc.get_all_settings())
             return await self._resolve_text_backend(svc, session, task_type, project_name)
 
     async def _resolve_text_backend(

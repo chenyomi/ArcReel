@@ -238,6 +238,13 @@ _VIDEO_AUDIO_STANCES: dict[tuple[str, str], tuple[str, str]] = {
     ("vidu", "viduq3"): ("controllable", "controllable"),
     ("vidu", "viduq3-pro"): ("controllable", "controllable"),
     ("vidu", "viduq3-turbo"): ("controllable", "controllable"),
+    ("aimanplay", "minimax_h3_lightx2v"): ("always_on", "always_on"),
+    ("aimanplay", "minimax_h3_image_audio_to_video_v2_15s"): ("always_on", "always_on"),
+    ("aimanplay", "minimax_h3_zm_u24"): ("always_on", "always_on"),
+    ("aimanplay", "minimax_h3_lightx2v_v5"): ("always_on", "always_on"),
+    ("aimanplay", "minimax_h3_lightx2v_no_pic"): ("always_on", "always_on"),
+    ("aimanplay", "minimax_h3_z0903"): ("always_on", "always_on"),
+    ("aimanplay", "minimax_h3_z0902"): ("always_off", "always_off"),
 }
 
 

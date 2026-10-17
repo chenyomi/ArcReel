@@ -1,0 +1,35 @@
+<block wx:if="{{product}}">
+  <swiper wx:if="{{product.images.length}}" class="hero" current="{{shot}}" bindchange="onShot" circular="{{product.images.length > 1}}">
+    <swiper-item wx:for="{{product.images}}" wx:key="id">
+      <image src="{{item.url}}" mode="aspectFill" data-src="{{item.url}}" bindtap="preview" />
+    </swiper-item>
+  </swiper>
+  <view wx:else class="hero code-only">{{product.code}}</view>
+  <scroll-view wx:if="{{product.images.length > 1}}" class="thumbs" scroll-x>
+    <image
+      wx:for="{{product.images}}"
+      wx:key="id"
+      src="{{item.url}}"
+      mode="aspectFill"
+      class="thumb {{index === shot ? 'on' : ''}}"
+      data-index="{{index}}"
+      bindtap="pick"
+    />
+  </scroll-view>
+  <view class="pad">
+    <text class="meta">{{product.category}}</text>
+    <text class="code">{{product.code}}</text>
+    <text class="meta">{{product.price ? '¥' + product.price : '询价'}}</text>
+  </view>
+  <view class="specs" wx:if="{{specs.length}}">
+    <view wx:for="{{specs}}" wx:key="label">
+      <text>{{item.label}}</text>
+      <text>{{item.value}}</text>
+    </view>
+  </view>
+  <text wx:if="{{product.note}}" class="note">{{product.note}}</text>
+  <view class="bar">
+    <button class="call" data-phone="{{site.phone1}}" bindtap="call">拨打 {{phone1}}</button>
+    <button class="call" bindtap="copy">{{site.wechat ? '复制微信' : '复制号码'}}</button>
+  </view>
+</block>

@@ -1,0 +1,62 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/cats/cats",
+    "pages/latest/latest",
+    "pages/contact/contact",
+    "pages/about/about",
+    "pages/detail/detail",
+    "pages/admin/index",
+    "pages/admin/products",
+    "pages/admin/edit",
+    "pages/admin/categories",
+    "pages/admin/site"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#121417",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "新弹力",
+    "backgroundColor": "#E6E8E3",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8B9398",
+    "selectedColor": "#F4F5F2",
+    "backgroundColor": "#121417",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "assets/tab/home.png",
+        "selectedIconPath": "assets/tab/home-on.png"
+      },
+      {
+        "pagePath": "pages/cats/cats",
+        "text": "分类",
+        "iconPath": "assets/tab/cats.png",
+        "selectedIconPath": "assets/tab/cats-on.png"
+      },
+      {
+        "pagePath": "pages/latest/latest",
+        "text": "上新",
+        "iconPath": "assets/tab/latest.png",
+        "selectedIconPath": "assets/tab/latest-on.png"
+      },
+      {
+        "pagePath": "pages/contact/contact",
+        "text": "联系",
+        "iconPath": "assets/tab/contact.png",
+        "selectedIconPath": "assets/tab/contact-on.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "介绍",
+        "iconPath": "assets/tab/about.png",
+        "selectedIconPath": "assets/tab/about-on.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

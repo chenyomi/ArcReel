@@ -1,0 +1,31 @@
+<view class="fascia">
+  <image wx:if="{{site.heroImage}}" class="fascia-photo" src="{{site.heroImage}}" mode="aspectFill" />
+  <view class="shade"></view>
+  <view class="copy">
+    <text class="mark">SNB</text>
+    <text class="name">新弹力鞋业</text>
+    <text class="tag">{{site.tagline}}</text>
+  </view>
+</view>
+<view class="rule"></view>
+<view class="kicker">当季</view>
+<view class="grid" wx:if="{{products.length}}">
+  <view class="card" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
+    <image wx:if="{{item.images.length}}" class="photo" src="{{item.images[0].url}}" mode="aspectFill" />
+    <view wx:else class="photo"></view>
+    <text class="code">{{item.code}}</text>
+    <text class="meta">{{item.category}}</text>
+  </view>
+</view>
+<view wx:else class="empty">这一季的款还没放上来。</view>
+<view class="kicker">合作电话</view>
+<view class="phones">
+  <view class="phone-row" wx:if="{{site.phone1}}">
+    <text>{{phone1}}</text>
+    <button data-phone="{{site.phone1}}" bindtap="call">拨打</button>
+  </view>
+  <view class="phone-row" wx:if="{{site.phone2}}">
+    <text>{{phone2}}</text>
+    <button data-phone="{{site.phone2}}" bindtap="call">拨打</button>
+  </view>
+</view>

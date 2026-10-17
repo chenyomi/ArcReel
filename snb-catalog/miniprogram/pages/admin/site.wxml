@@ -1,0 +1,16 @@
+<view class="pad">
+  <view wx:if="{{notice}}" class="banner">{{notice}}</view>
+  <image wx:if="{{heroFileID}}" class="hero" src="{{heroFileID}}" mode="aspectFill" />
+  <button class="ghost" bindtap="chooseHero">上传厂门口的图</button>
+  <view class="field" style="margin-top:28rpx"><text>厂名</text><input value="{{company}}" data-key="company" bindinput="onInput" /></view>
+  <view class="field"><text>一句介绍</text><input value="{{tagline}}" data-key="tagline" bindinput="onInput" /></view>
+  <view class="field"><text>电话一</text><input value="{{phone1}}" data-key="phone1" bindinput="onInput" /></view>
+  <view class="field"><text>电话二</text><input value="{{phone2}}" data-key="phone2" bindinput="onInput" /></view>
+  <view class="field"><text>微信</text><input value="{{wechat}}" data-key="wechat" bindinput="onInput" /></view>
+  <view class="field"><text>地址</text><input value="{{address}}" data-key="address" bindinput="onInput" /></view>
+  <view class="field"><text>纬度</text><input value="{{latitude}}" data-key="latitude" placeholder="高德拾取" bindinput="onInput" /></view>
+  <view class="field"><text>经度</text><input value="{{longitude}}" data-key="longitude" bindinput="onInput" /></view>
+  <view class="field"><text>介绍</text><textarea value="{{about}}" data-key="about" bindinput="onInput" /></view>
+  <view class="hint">纬度和经度都填上，联系页才能打开导航。</view>
+  <button class="primary" style="margin-top:24rpx" bindtap="save">保存</button>
+</view>

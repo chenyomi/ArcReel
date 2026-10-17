@@ -1,0 +1,12 @@
+.fascia { position: relative; height: 360rpx; background: #121417; color: #fff; overflow: hidden; }
+.fascia-photo, .shade { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.shade { background: linear-gradient(180deg, rgba(18, 20, 23, 0.1), rgba(18, 20, 23, 0.72)); }
+.copy { position: absolute; left: 32rpx; bottom: 28rpx; display: flex; flex-direction: column; }
+.name { margin-top: 8rpx; font-size: 56rpx; font-weight: 650; }
+.pad { padding: 28rpx 32rpx 8rpx; }
+.company, .address { display: block; }
+.address { margin-top: 12rpx; color: #5e676c; }
+.nav-btn { margin-top: 20rpx; background: #121417; color: #f4f5f2; height: 72rpx; padding: 0 28rpx; display: inline-block; }
+.phones { margin: 12rpx 32rpx 0; }
+.phone-row { display: flex; justify-content: space-between; align-items: center; padding: 28rpx 0; border-top: 1rpx solid #d0d4ce; }
+.phone-row button { background: #d0121a; color: #fff; height: 64rpx; padding: 0 24rpx; font-size: 26rpx; }

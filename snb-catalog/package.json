@@ -1,0 +1,11 @@
+{
+  "name": "snb-catalog",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server/index.js"
+  }
+}

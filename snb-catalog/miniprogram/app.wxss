@@ -1,0 +1,58 @@
+page {
+  background: #e6e8e3;
+  color: #121417;
+  font-size: 28rpx;
+  line-height: 1.45;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  line-height: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button::after {
+  border: none;
+}
+
+.mark {
+  color: #d0121a;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  font-size: 24rpx;
+}
+
+.code {
+  font-weight: 680;
+  letter-spacing: -0.04em;
+}
+
+.meta {
+  color: #5e676c;
+  font-size: 24rpx;
+}
+
+.kicker {
+  margin: 36rpx 32rpx 20rpx;
+  color: #5e676c;
+  font-size: 24rpx;
+  letter-spacing: 0.14em;
+}
+
+.photo {
+  display: block;
+  background: #dddfda;
+}
+
+.empty {
+  color: #5e676c;
+  padding: 12rpx 32rpx 32rpx;
+}
+
+.rule {
+  height: 6rpx;
+  background: #d0121a;
+}

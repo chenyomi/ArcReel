@@ -1,0 +1,31 @@
+<view class="pad">
+  <view wx:if="{{notice}}" class="banner">{{notice}}</view>
+  <view class="shots">
+    <view class="shot" wx:for="{{images}}" wx:key="fileID">
+      <image src="{{item.url}}" mode="aspectFill" />
+      <button class="text danger" data-index="{{index}}" bindtap="removeImage">删除</button>
+    </view>
+  </view>
+  <button class="ghost" bindtap="addImages">添加配色图</button>
+  <view class="field" style="margin-top:28rpx"><text>货号</text><input value="{{code}}" data-key="code" bindinput="onInput" /></view>
+  <view class="field">
+    <text>分类</text>
+    <picker mode="selector" range="{{categories}}" range-key="name" value="{{categoryIndex}}" bindchange="onCategory">
+      <view class="picker">{{categories[categoryIndex].name || '选择分类'}}</view>
+    </picker>
+  </view>
+  <view class="field"><text>价格</text><input value="{{price}}" data-key="price" placeholder="空着就是询价" bindinput="onInput" /></view>
+  <view class="field"><text>鞋底</text><input value="{{sole}}" data-key="sole" bindinput="onInput" /></view>
+  <view class="field"><text>面料</text><input value="{{upper}}" data-key="upper" bindinput="onInput" /></view>
+  <view class="field"><text>码段</text><input value="{{sizes}}" data-key="sizes" placeholder="39-44" bindinput="onInput" /></view>
+  <view class="field"><text>装箱</text><input value="{{pack}}" data-key="pack" bindinput="onInput" /></view>
+  <view class="field"><text>起订</text><input value="{{moq}}" data-key="moq" bindinput="onInput" /></view>
+  <view class="field"><text>备注</text><textarea value="{{note}}" data-key="note" bindinput="onInput" /></view>
+  <checkbox-group class="check" bindchange="onPublished">
+    <checkbox value="1" checked="{{published}}" />上架
+  </checkbox-group>
+  <view class="actions">
+    <button class="primary" bindtap="save">保存</button>
+    <button wx:if="{{id}}" class="text danger" bindtap="remove">删除这款</button>
+  </view>
+</view>

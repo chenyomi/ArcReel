@@ -1,0 +1,12 @@
+.fascia { position: relative; height: 456rpx; background: #121417; color: #fff; overflow: hidden; }
+.fascia-photo, .shade { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.shade { background: linear-gradient(180deg, rgba(18, 20, 23, 0.12), rgba(18, 20, 23, 0.74)); }
+.copy { position: absolute; left: 32rpx; right: 32rpx; bottom: 32rpx; display: flex; flex-direction: column; }
+.name { margin-top: 10rpx; font-size: 64rpx; font-weight: 650; letter-spacing: -0.04em; }
+.tag { margin-top: 8rpx; color: #d5d8d4; font-size: 26rpx; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28rpx 20rpx; padding: 0 32rpx; }
+.photo { width: 100%; height: 320rpx; }
+.card .code { display: block; margin-top: 10rpx; font-size: 40rpx; }
+.phones { margin: 0 32rpx; }
+.phone-row { display: flex; justify-content: space-between; align-items: center; padding: 28rpx 0; border-top: 1rpx solid #d0d4ce; }
+.phone-row button { background: #d0121a; color: #fff; height: 64rpx; padding: 0 24rpx; font-size: 26rpx; }

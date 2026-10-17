@@ -1,0 +1,6 @@
+<view class="pad">
+  <text class="mark">SNB</text>
+  <text class="company">{{site.company}}</text>
+  <text class="about">{{site.about}}</text>
+  <view class="manage" bindtap="manage">管理</view>
+</view>

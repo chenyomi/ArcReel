@@ -1,0 +1,14 @@
+<view class="pad">
+  <view wx:if="{{notice}}" class="banner">{{notice}}</view>
+  <view wx:for="{{categories}}" wx:key="id">
+    <view class="field"><input value="{{item.name}}" data-index="{{index}}" bindinput="onName" /></view>
+    <view class="actions">
+      <button class="ghost" data-index="{{index}}" data-step="-1" bindtap="move">上移</button>
+      <button class="ghost" data-index="{{index}}" data-step="{{1}}" bindtap="move">下移</button>
+      <button class="text" data-index="{{index}}" bindtap="save">保存</button>
+      <button class="text danger" data-index="{{index}}" bindtap="remove">删除</button>
+    </view>
+  </view>
+  <view class="field" style="margin-top:28rpx"><input value="{{draft}}" placeholder="新分类" bindinput="onDraft" /></view>
+  <button class="primary" bindtap="add">添加</button>
+</view>

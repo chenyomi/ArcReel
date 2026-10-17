@@ -1,0 +1,18 @@
+[Unit]
+Description=SNB shoe catalog
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/snb
+Environment=NODE_ENV=production
+Environment=PORT=8787
+Environment=HOST=127.0.0.1
+Environment=PUBLIC_BASE=https://api.chenyomi.top
+Environment=DATA_DIR=/var/www/snb/data
+Environment=ADMIN_PASSWORD=换成密码
+Environment=ADMIN_TOKEN_SECRET=换成随机字符串
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning server/index.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

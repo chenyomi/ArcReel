@@ -1,0 +1,44 @@
+.pad { padding: 32rpx; }
+.hint { color: #5e676c; font-size: 26rpx; line-height: 1.5; }
+.openid { margin: 24rpx 0; padding: 20rpx; background: #f7f8f6; word-break: break-all; font-size: 26rpx; }
+.menu { margin-top: 28rpx; border-top: 1rpx solid #d0d4ce; }
+.menu-item, .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #d0d4ce;
+}
+.code { font-size: 40rpx; font-weight: 650; letter-spacing: -0.04em; }
+.meta { color: #5e676c; font-size: 24rpx; }
+.primary, .ghost, .text {
+  margin: 0;
+  padding: 0 28rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  font-size: 28rpx;
+  border-radius: 0;
+}
+.primary { background: #121417; color: #f4f5f2; }
+.ghost { background: #f7f8f6; color: #121417; border: 1rpx solid #d0d4ce; }
+.text { background: transparent; color: #5e676c; padding: 0 12rpx; }
+.danger { color: #d0121a; }
+button::after { border: none; }
+.field { margin-bottom: 20rpx; }
+.field text { display: block; margin-bottom: 8rpx; color: #5e676c; font-size: 24rpx; }
+.field input, .field textarea, .picker {
+  width: 100%;
+  box-sizing: border-box;
+  background: #f7f8f6;
+  border: 1rpx solid #d0d4ce;
+  padding: 16rpx 20rpx;
+  min-height: 72rpx;
+}
+.field textarea { min-height: 160rpx; }
+.shots { display: flex; flex-wrap: wrap; gap: 12rpx; margin-bottom: 16rpx; }
+.shot { width: 160rpx; }
+.shot image, .hero { width: 160rpx; height: 160rpx; background: #dddfda; }
+.hero { width: 100%; height: 320rpx; margin-bottom: 16rpx; }
+.actions { display: flex; gap: 16rpx; align-items: center; margin-top: 12rpx; }
+.check { display: flex; align-items: center; gap: 12rpx; margin: 12rpx 0 28rpx; }
+.banner { margin-bottom: 16rpx; padding-left: 12rpx; border-left: 6rpx solid #d0121a; }

@@ -1,0 +1,21 @@
+<view class="fascia">
+  <image wx:if="{{site.heroImage}}" class="fascia-photo" src="{{site.heroImage}}" mode="aspectFill" />
+  <view class="shade"></view>
+  <view class="copy"><text class="mark">SNB</text><text class="name">联系</text></view>
+</view>
+<view class="rule"></view>
+<view class="pad">
+  <text class="company">{{site.company}}</text>
+  <text class="address">{{site.address}}</text>
+  <button wx:if="{{canNav}}" class="nav-btn" bindtap="openMap">打开导航</button>
+</view>
+<view class="phones">
+  <view class="phone-row" wx:if="{{site.phone1}}">
+    <text>{{phone1}}</text>
+    <button data-phone="{{site.phone1}}" bindtap="call">拨打</button>
+  </view>
+  <view class="phone-row" wx:if="{{site.phone2}}">
+    <text>{{phone2}}</text>
+    <button data-phone="{{site.phone2}}" bindtap="call">拨打</button>
+  </view>
+</view>

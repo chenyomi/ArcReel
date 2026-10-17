@@ -1,0 +1,18 @@
+.finder { display: flex; height: calc(100vh - 112rpx); }
+.search {
+  display: block;
+  width: auto;
+  height: 72rpx;
+  margin: 20rpx 24rpx;
+  padding: 0 20rpx;
+  border: 1rpx solid #d0d4ce;
+  background: #f7f8f6;
+}
+.rail { width: 192rpx; background: #dcdfd8; }
+.rail-item { padding: 26rpx 16rpx 26rpx 20rpx; color: #5e676c; border-left: 6rpx solid transparent; }
+.rail-item.on { background: #e6e8e3; color: #121417; border-left-color: #d0121a; }
+.results { flex: 1; }
+.line { display: flex; gap: 20rpx; padding: 24rpx; border-bottom: 1rpx solid #d0d4ce; }
+.photo { width: 168rpx; height: 168rpx; flex: none; }
+.code { display: block; font-size: 40rpx; }
+.meta { display: block; margin-top: 6rpx; }

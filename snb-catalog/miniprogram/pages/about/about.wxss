@@ -1,0 +1,4 @@
+.pad { padding: 48rpx 32rpx; }
+.company { display: block; margin-top: 16rpx; font-size: 48rpx; font-weight: 650; letter-spacing: -0.03em; }
+.about { display: block; margin-top: 24rpx; white-space: pre-wrap; }
+.manage { margin-top: 80rpx; color: #8b9398; font-size: 24rpx; }

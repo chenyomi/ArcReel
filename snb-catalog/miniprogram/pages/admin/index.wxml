@@ -1,0 +1,17 @@
+<view class="pad">
+  <view wx:if="{{loading}}" class="hint">正在核对微信…</view>
+  <block wx:elif="{{!admin}}">
+    <view class="hint">这个微信还不能改货。把下面这串 openid 写进云函数 admin 的环境变量 ADMIN_OPENIDS，重新上传云函数后再进来。</view>
+    <view class="openid">{{openid}}</view>
+    <button class="primary" bindtap="copy">复制 openid</button>
+  </block>
+  <block wx:else>
+    <view class="menu">
+      <view class="menu-item" bindtap="go" data-url="/pages/admin/products"><text>款式</text><text class="meta">货号和配色</text></view>
+      <view class="menu-item" bindtap="go" data-url="/pages/admin/categories"><text>分类</text><text class="meta">左侧那一列</text></view>
+      <view class="menu-item" bindtap="go" data-url="/pages/admin/site"><text>联系与介绍</text><text class="meta">电话、地址、横图</text></view>
+    </view>
+    <button class="ghost" style="margin-top:32rpx" bindtap="seed">写入初始分类和联系方式</button>
+    <view wx:if="{{notice}}" class="banner" style="margin-top:24rpx">{{notice}}</view>
+  </block>
+</view>

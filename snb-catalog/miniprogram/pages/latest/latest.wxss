@@ -1,0 +1,4 @@
+.wide { display: flex; gap: 24rpx; padding: 0 32rpx 28rpx; }
+.photo { width: 264rpx; height: 264rpx; flex: none; }
+.code { display: block; margin: 8rpx 0; font-size: 48rpx; }
+.meta { display: block; }

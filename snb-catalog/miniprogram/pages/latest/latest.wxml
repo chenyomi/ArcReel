@@ -1,0 +1,11 @@
+<view class="kicker">按放下的时间</view>
+<view wx:if="{{products.length === 0}}" class="empty">还没有上新。</view>
+<view class="wide" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
+  <image wx:if="{{item.images.length}}" class="photo" src="{{item.images[0].url}}" mode="aspectFill" />
+  <view wx:else class="photo"></view>
+  <view>
+    <text class="meta">{{item.category}}</text>
+    <text class="code">{{item.code}}</text>
+    <text class="meta">{{item.price ? '¥' + item.price : '询价'}}</text>
+  </view>
+</view>

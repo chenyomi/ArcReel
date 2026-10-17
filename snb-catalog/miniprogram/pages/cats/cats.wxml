@@ -1,0 +1,23 @@
+<input class="search" placeholder="货号" value="{{query}}" bindinput="onQuery" confirm-type="search" />
+<view class="finder">
+  <scroll-view class="rail" scroll-y>
+    <view
+      wx:for="{{rail}}"
+      wx:key="id"
+      class="rail-item {{current === item.id ? 'on' : ''}}"
+      data-id="{{item.id}}"
+      bindtap="pick"
+    >{{item.name}}</view>
+  </scroll-view>
+  <scroll-view class="results" scroll-y>
+    <view wx:if="{{shown.length === 0}}" class="empty">这个分类还没有款。</view>
+    <view class="line" wx:for="{{shown}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
+      <image wx:if="{{item.images.length}}" class="photo" src="{{item.images[0].url}}" mode="aspectFill" />
+      <view wx:else class="photo"></view>
+      <view>
+        <text class="code">{{item.code}}</text>
+        <text class="meta">{{item.category}} · {{item.price ? '¥' + item.price : '询价'}}</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,13 @@
+<view class="pad">
+  <button class="primary" bindtap="create">添加一款</button>
+  <view class="menu">
+    <view class="row" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
+      <view>
+        <view class="code">{{item.code}}</view>
+        <view class="meta">{{item.category}}{{item.published ? '' : ' · 下架'}}</view>
+      </view>
+      <text class="meta">{{item.price ? '¥' + item.price : '询价'}}</text>
+    </view>
+  </view>
+  <view wx:if="{{products.length === 0}}" class="hint">还没有款。货号按厂里的写法，比如 2026-12。</view>
+</view>

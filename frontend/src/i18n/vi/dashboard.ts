@@ -417,7 +417,7 @@ export default {
   'presentation_download_failed': 'Tải gói trình bày thất bại: {{message}}',
   'draft_path': 'Đường dẫn thư mục bản nháp',
   'draft_path_placeholder': 'Đường dẫn thư mục bản nháp Jianying',
-  'draft_path_default_mac': '/Users/<TênNgườiDùng>/Movies/JianyingPro/User Data/Projects/com.lveditor.draft',
+  'draft_path_default_mac': '/Users/<TênNgườiDùng>/Documents/JianyingPro Drafts',
   'draft_path_default_windows': String.raw`C:\Users\<TênNgườiDùng>\AppData\Local\JianyingPro\User Data\Projects\com.lveditor.draft`,
   'draft_path_hint': 'Vui lòng nhập đường dẫn đầy đủ tới thư mục bản nháp Jianying. Vào Jianying -> Cài đặt -> Vị trí bản nháp để tìm.',
   'exporting': 'Đang xuất...',

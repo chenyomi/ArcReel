@@ -1,0 +1,75 @@
+{
+  "kind": "declarative",
+  "schema_version": "1.0.0",
+  "meta": {
+    "name": "Atlas Seedance 2.0 Mini",
+    "author": "user",
+    "version": "1.0.0",
+    "description": "Atlas Cloud Seedance 2.0 Mini reference-to-video. Default resolution is 480p, the cheap tier. Up to 9 reference images. Duration 4-15 seconds.",
+    "homepage": "https://www.atlascloud.ai/models/bytedance/seedance-2.0-mini/reference-to-video",
+    "hints": {
+      "base_url": "https://api.atlascloud.ai/api/v1",
+      "suggested_models": [
+        {
+          "id": "bytedance/seedance-2.0-mini/reference-to-video",
+          "label": "Seedance 2.0 Mini 参考生视频 480p"
+        }
+      ]
+    }
+  },
+  "auth": {"headers": {"Authorization": "Bearer {{ api_key }}"}},
+  "inputs": {
+    "refs": {"source": "reference_images", "encoding": "data_uri", "required": true}
+  },
+  "defaults": {"resolution": "480p", "generate_audio": false},
+  "submit": {
+    "method": "POST",
+    "url": "{{ base_url }}/model/generateVideo",
+    "headers": {"Content-Type": "application/json"},
+    "body": {
+      "model": "{{ model }}",
+      "prompt": "{{ prompt }}",
+      "reference_images": [
+        {"$each": {"in": "inputs.refs", "as": "ref", "item": "{{ ref }}"}}
+      ],
+      "duration": "{{ duration }}",
+      "resolution": "{{ resolution }}",
+      "ratio": "{{ aspect_ratio }}",
+      "generate_audio": "{{ generate_audio }}",
+      "watermark": false
+    },
+    "extract": {
+      "task_id": ["$.data.id", "$.id"],
+      "error": ["$.data.error", "$.error.message", "$.message", "$.msg"]
+    }
+  },
+  "poll": {
+    "method": "GET",
+    "url": "{{ base_url }}/model/prediction/{{ task_id }}",
+    "extract": {
+      "status": ["$.data.status", "$.status"],
+      "video_url": ["$.data.outputs[0]", "$.outputs[0]"],
+      "error": ["$.data.error", "$.error.message", "$.message", "$.msg"]
+    }
+  },
+  "status_map": {
+    "created": "queued",
+    "queued": "queued",
+    "pending": "queued",
+    "starting": "queued",
+    "processing": "running",
+    "running": "running",
+    "completed": "succeeded",
+    "succeeded": "succeeded",
+    "failed": "failed",
+    "timeout": "failed",
+    "cancelled": "failed",
+    "canceled": "failed"
+  },
+  "capabilities": {
+    "text_to_video": false,
+    "max_reference_images": 9,
+    "audio_track": "controllable",
+    "reference_route_audio_track": "controllable"
+  }
+}

@@ -19,6 +19,17 @@ export type ExportScope = "current" | "full" | "jianying-draft";
 
 const DRAFT_PATH_STORAGE_KEY = "arcreel_jianying_draft_path";
 
+/** 旧版 macOS 默认把草稿写到 Movies；现行剪映多在「文稿/JianyingPro Drafts」。 */
+function migrateStoredDraftPath(stored: string): string {
+  const moviesMatch = stored.match(
+    /^\/Users\/([^/]+)\/Movies\/JianyingPro(?:\/.*)?$/,
+  );
+  if (moviesMatch) {
+    return `/Users/${moviesMatch[1]}/Documents/JianyingPro Drafts`;
+  }
+  return stored;
+}
+
 interface ExportScopeDialogProps {
   open: boolean;
   onClose: () => void;
@@ -53,9 +64,15 @@ export function ExportScopeDialog({
   const defaultDraftPath = isWindows
     ? t("dashboard:draft_path_default_windows")
     : t("dashboard:draft_path_default_mac");
-  const [draftPath, setDraftPath] = useState<string>(
-    () => localStorage.getItem(DRAFT_PATH_STORAGE_KEY) || defaultDraftPath,
-  );
+  const [draftPath, setDraftPath] = useState<string>(() => {
+    const stored = localStorage.getItem(DRAFT_PATH_STORAGE_KEY);
+    if (!stored) return defaultDraftPath;
+    const migrated = migrateStoredDraftPath(stored);
+    if (migrated !== stored) {
+      localStorage.setItem(DRAFT_PATH_STORAGE_KEY, migrated);
+    }
+    return migrated;
+  });
   const [jianyingVersion, setJianyingVersion] = useState("6");
   const [narrationDelivery, setNarrationDelivery] = useState<PresentationVariant>("post_production");
 

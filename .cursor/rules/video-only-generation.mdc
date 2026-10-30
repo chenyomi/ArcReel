@@ -1,14 +1,14 @@
 ---
-description: ArcReel 本地只允许视频打供应商；禁止 Agent 调图片/文本/配音生成接口
+description: ArcReel 本地限制付费文图；视频与 TTS 配音可用
 alwaysApply: true
 ---
 
-# 计费硬限制：只出视频
+# 计费限制：视频 + TTS，禁止付费文图
 
-本仓库本地已开启 `paid_generation_media=video_only`。服务端会在入队与解析闸口拒绝非视频任务，但 Agent **仍不得尝试**调用这些工具：
+本仓库本地 `paid_generation_media` 允许视频与配音。Agent **仍不得尝试**调用这些工具：
 
-- 禁止：`generate_assets`、`generate_storyboards`、`generate_grid`、`edit_images`、`generate_narration_audio`
+- 禁止：`generate_assets`、`generate_storyboards`、`generate_grid`、`edit_images`
 - 禁止：`generate_script_plan`、`generate_episode_script`、`plan_episodes`（文本模型计费）
-- 允许：`generate_videos`；以及不调供应商的读写 / 草稿 / 资产库套用 / `convert_script_plan`
+- 允许：`generate_videos`、`generate_narration_audio`；以及不调供应商的读写 / 草稿 / 资产库套用 / `convert_script_plan`
 
 图片与文案用 Cursor 或本地素材完成。不要为推进工作流去碰上述禁止工具。

@@ -59,7 +59,7 @@ Providers' specific models, parameters, regional availability, and pricing chang
 | MiniMax | ✅ | ✅ | ✅ | — | Text, image, and video generation |
 | Kling | — | ✅ | ✅ | — | Image, image-to-video, and reference-to-video generation |
 | Agnes | ✅ | ✅ | ✅ | — | Text, image, and video generation |
-| aimanplay | — | — | ✅ | — | Video only (STS upload + multi-ref / image+audio) |
+| aimanplay | — | — | ✅ | ✅ | MiniMax-H3 video + IndexTTS2 narration |
 | Custom Providers | Interface-dependent | Interface-dependent | Interface-dependent | Interface-dependent | Private gateways, local models, or third-party compatible services |
 
 The built-in OpenAI provider offers text, image, and video capabilities. OpenAI-compatible TTS is connected through a Custom Provider's TTS call endpoint.

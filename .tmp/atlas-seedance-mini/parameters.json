@@ -1,0 +1,8 @@
+{
+  "model": "bytedance/seedance-2.0-mini/reference-to-video",
+  "prompt": "The character in image 1 stands in a fluorescent office and turns toward the camera.",
+  "duration_seconds": 8,
+  "aspect_ratio": "9:16",
+  "resolution": "480p",
+  "generate_audio": false
+}

@@ -22,7 +22,12 @@ ArcReel 当前导出的是面向中国大陆版剪映桌面端的草稿格式。
 
 导出前需要知道本地剪映草稿的存放路径。
 
-**macOS：**
+**macOS（现行剪映常见）：**
+```
+/Users/<用户名>/Documents/JianyingPro Drafts
+```
+
+**macOS（旧版默认，若设置里仍是此路径再用）：**
 ```
 /Users/<用户名>/Movies/JianyingPro/User Data/Projects/com.lveditor.draft
 ```

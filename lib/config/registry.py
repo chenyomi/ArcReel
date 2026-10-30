@@ -382,6 +382,11 @@ def _aimanplay_video_flat_pricing(model_id: str, per_second: float) -> PerSecond
     )
 
 
+# IndexTTS2 网关刊例约 ¥0.002/秒；估算按 ~4 字/秒折成元/万字符，供旁白预估用。
+def _aimanplay_audio_pricing(model_id: str, per_10k_chars: float) -> PerCharacter:
+    return PerCharacter(rates={model_id: per_10k_chars}, default_model=model_id, currency="CNY")
+
+
 def _aimanplay_video_resolution_pricing(
     model_id: str, rates: dict[str, float], *, default_resolution: str
 ) -> PerSecondMatrix:
@@ -1417,11 +1422,19 @@ PROVIDER_REGISTRY: dict[str, ProviderMeta] = {
     ),
     "aimanplay": ProviderMeta(
         display_name="aimanplay",
-        description="aimanplay.cn video API (MiniMax-H3 family); Bearer sk token; assets upload via STS then submit. Supports first/last frame, multi-ref, and image+audio.",
+        description="aimanplay.cn（菠萝 max）：MiniMax-H3 视频 + IndexTTS2 配音；Bearer sk；视频经 STS 上传后提交，TTS 走 OpenAI 兼容 /v1/audio/speech。",
         required_keys=["api_key"],
-        optional_keys=["base_url", "video_max_workers"],
+        optional_keys=["base_url", "video_max_workers", "audio_max_workers"],
         secret_keys=["api_key"],
         models={
+            # --- audio ---
+            "indextts2-v1": ModelInfo(
+                display_name="IndexTTS2",
+                media_type="audio",
+                capabilities=["text_to_speech"],
+                default=True,
+                pricing=_aimanplay_audio_pricing("indextts2-v1", 5.0),
+            ),
             # 多图参考 1080P（最多 9 张）——参考生视频默认推荐。
             "minimax_h3_lightx2v_v5": ModelInfo(
                 display_name="Multi-Ref 1080P",
@@ -1490,7 +1503,7 @@ PROVIDER_REGISTRY: dict[str, ProviderMeta] = {
             ),
         },
         default_base_url=AIMANPLAY_BASE_URL,
-        default_concurrency={"video": 2},
+        default_concurrency={"video": 2, "audio": 2},
     ),
 }
 

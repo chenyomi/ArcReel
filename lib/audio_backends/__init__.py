@@ -21,7 +21,9 @@ __all__ = [
 ]
 
 # Backend auto-registration
+from lib.audio_backends.aimanplay import AimanplayAudioBackend
 from lib.audio_backends.dashscope import DashScopeAudioBackend
-from lib.providers import PROVIDER_DASHSCOPE
+from lib.providers import PROVIDER_AIMANPLAY, PROVIDER_DASHSCOPE
 
 register_backend(PROVIDER_DASHSCOPE, DashScopeAudioBackend)
+register_backend(PROVIDER_AIMANPLAY, AimanplayAudioBackend)

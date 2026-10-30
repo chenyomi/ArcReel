@@ -21,14 +21,19 @@ ArcReel currently exports the draft format for the mainland-China edition of Jia
 
 Before exporting, you need to know where local Jianying drafts are stored.
 
-**macOS:**
+**macOS (current Jianying common path):**
+```
+/Users/<username>/Documents/JianyingPro Drafts
+```
+
+**macOS (legacy default — use only if Settings still shows it):**
 ```
 /Users/<username>/Movies/JianyingPro/User Data/Projects/com.lveditor.draft
 ```
 
 **Windows:**
 ```
-C:\Users\<username>\AppData\Local\JianyingPro\User Data\Projects\com.lveditor.draft
+C:\Users\<username>\AppData\Local\JianyingPro\User Data/Projects\com.lveditor.draft
 ```
 
 > **Tip**: You can find the "Draft Location" in Jianying Settings. If you changed the default location, use the actual draft directory.
